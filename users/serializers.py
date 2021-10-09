@@ -1,7 +1,20 @@
 from rest_framework import serializers
-from rest_framework.exceptions import ValidationError
 
 from users.models import User
+
+
+class LoginSerializer(serializers.Serializer):
+    """
+    Сериализатор для авторизации пользователей
+    """
+    username = serializers.CharField(
+        max_length=100,
+        style={"placeholder": "username", "autofocus": True}
+    )
+    password = serializers.CharField(
+        max_length=100,
+        style={"input_type": "password", "placeholder": "Password"}
+    )
 
 
 class UserSerializer(serializers.ModelSerializer):

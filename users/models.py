@@ -5,7 +5,6 @@ class User(AbstractUser):
     """
     Пользователь
     """
-    USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []
 
     email = models.EmailField(unique=True)
