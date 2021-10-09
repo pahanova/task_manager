@@ -4,7 +4,9 @@ from django.urls import path, include
 from tasks.views import TaskListCreateView, TaskRetrieveUpdateDeleteView
 
 urlpatterns = [
-    path('api/admin/', admin.site.urls),
-    path("api/tasks/", TaskListCreateView.as_view(), name="tasks"),
-    path("api/task/<str:pk>", TaskRetrieveUpdateDeleteView.as_view(), name="task"),
+    path('admin/', admin.site.urls),
+    path("tasks", include("tasks.urls")),
+    path("users/", include("users.urls")),
 ]
+
+urlpatterns = [path("api/", include(urlpatterns))]

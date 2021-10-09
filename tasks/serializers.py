@@ -2,24 +2,8 @@ from rest_framework import serializers
 from tasks.models import Task
 from django.contrib.auth.models import User
 
+from users.serializers import UserSerializer
 
-class UserSerializer(serializers.ModelSerializer):
-    """
-    Сериализатор пользователей
-    """
-
-    class Meta:
-        model = User
-        fields = (
-            "id",
-            "first_name",
-            "last_name",
-        )
-        read_only_fields = (
-            "id",
-            "first_name",
-            "last_name",
-        )
 
 class TaskSerializer(serializers.Serializer):
     """
