@@ -14,6 +14,7 @@ class IsOwner(permissions.BasePermission):
     def has_object_permission(self, request, view, obj):
         user = get_user_from_jwt(request)
         if user:
-            return True if obj.owner == user else False
-        else:
-            return False
+            if request.method in permissions.SAFE_METHODS or obj.owner == user:
+                return True
+        return False
+

@@ -20,7 +20,7 @@ class Task(models.Model):
         on_delete=models.CASCADE,
     )
     finish_date = models.DateField("Дата завершения")
-    attached_file = models.FileField("Прикрипленный файл")
+    attached_file = models.FileField("Прикрипленный файл", null=True, blank=False)
 
     class Meta:
         verbose_name = "Задача"
