@@ -1,4 +1,17 @@
 services:
+  nginx:
+    image: task-manager-nginx:latest
+    container_name: reading-room-nginx
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - django-static:/var/www/static
+    depends_on:
+      - django
+    networks:
+      - proxynet
   db:
     image: postgres
     volumes:
@@ -8,15 +21,25 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
     ports:
-      - "5000:5432"
+      - "5432:5432"
+    networks:
+      - proxynet
   django:
     image: task-manager-django:latest
     container_name: reading-room-django
     restart: unless-stopped
     command: sh gunicorn.sh
     volumes:
-      - .:/code
-    ports:
-      - "8000:8000"
+      - django-static:/code/static
+    expose:
+      - "8000"
     depends_on:
       - db
+    networks:
+      - proxynet
+
+networks:
+  proxynet:
+
+volumes:
+  django-static:
