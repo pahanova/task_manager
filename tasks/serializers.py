@@ -50,7 +50,7 @@ class TaskSerializer(serializers.ModelSerializer):
             "id",
             "name",
             "description",
-            "owner"
+            "owner",
             "executors",
             "finish_date",
             "attached_file",
