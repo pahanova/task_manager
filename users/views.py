@@ -13,15 +13,19 @@ from TaskManager.settings import SECRET_KEY
 from users.utils import get_user_from_jwt
 
 
-class RegisterView(APIView):
+class RegisterView(GenericAPIView):
     """
     Регистрация пользователя
     """
+
+    serializer_class = UserSerializer
+    queryset = User.objects.all()
+
     def post(self, request):
         """
         :return: объект пользователя
         """
-        serializer = UserSerializer(data=request.data)
+        serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(serializer.data)

@@ -21,6 +21,7 @@ class LoginSerializer(serializers.ModelSerializer):
             "password",
         )
 
+
 class UserSerializer(serializers.ModelSerializer):
     """
     Сериализатор пользователей
