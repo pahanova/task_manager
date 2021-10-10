@@ -8,3 +8,4 @@ readme.md
 docker-compose.yml
 data
 static
+staticfiles
