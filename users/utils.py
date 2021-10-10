@@ -19,4 +19,4 @@ def get_user_from_jwt(request):
     except jwt.ExpiredSignatureError:
         return None
 
-    return User.objects.get(id=payload["id"])
+    return User.objects.filter(id=payload["id"]).first()

@@ -48,7 +48,7 @@ class LoginView(APIView):
                 "iat": datetime.datetime.utcnow(),
             }
             token = jwt.encode(payload, force_str(SECRET_KEY), algorithm='HS256')
-            response = Response(data={"message": "success"})
+            response = Response(data={"message": "Успешная авторизация"})
             response.set_cookie(key="jwt", value=token, httponly=True)
             return response
         else:
@@ -65,5 +65,21 @@ class AuthenticatedUserView(RetrieveAPIView):
 
     def get_object(self):
         return get_user_from_jwt(self.request)
+
+
+class LogoutView(APIView):
+    """
+    Разлогин путем удаления JWT-токена из кук
+    """
+    def get(self, request):
+        response = Response()
+        response.delete_cookie("jwt")
+        response.data = {
+            "message": "Успешно"
+        }
+        return response
+
+
+
 
 
