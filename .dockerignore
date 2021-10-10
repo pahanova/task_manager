@@ -6,3 +6,5 @@ Dockerfile
 .gitignore
 readme.md
 docker-compose.yml
+data
+static
