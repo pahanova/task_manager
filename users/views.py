@@ -2,7 +2,7 @@ import datetime
 import jwt
 from django.utils.encoding import force_str
 from rest_framework.exceptions import AuthenticationFailed
-from rest_framework.generics import RetrieveAPIView
+from rest_framework.generics import RetrieveAPIView, GenericAPIView
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
@@ -27,15 +27,19 @@ class RegisterView(APIView):
         return Response(serializer.data)
 
 
-class LoginView(APIView):
+class LoginView(GenericAPIView):
     """
     Авторизация пользователя
     """
+
+    serializer_class = LoginSerializer
+    queryset = User.objects.all()
+
     def post(self, request):
         """
         :return: объект пользователя
         """
-        serializer = LoginSerializer(data=request.data)
+        serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
         username = serializer.data.get("username")
         password = serializer.data.get("password")

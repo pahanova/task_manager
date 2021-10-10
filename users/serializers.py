@@ -3,19 +3,23 @@ from rest_framework import serializers
 from users.models import User
 
 
-class LoginSerializer(serializers.Serializer):
+class LoginSerializer(serializers.ModelSerializer):
     """
     Сериализатор для авторизации пользователей
     """
     username = serializers.CharField(
         max_length=100,
-        style={"placeholder": "username", "autofocus": True}
     )
     password = serializers.CharField(
         max_length=100,
-        style={"input_type": "password", "placeholder": "Password"}
     )
 
+    class Meta:
+        model = User
+        fields = (
+            "username",
+            "password",
+        )
 
 class UserSerializer(serializers.ModelSerializer):
     """
