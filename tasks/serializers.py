@@ -36,6 +36,7 @@ class TaskSerializer(serializers.ModelSerializer):
 
     executors = UserSerializer(many=True, read_only=True)
     attached_file = serializers.FileField(required=False)
+    owner = UserSerializer(read_only=True)
 
     def create(self, validated_data):
         instance: Task = super(TaskSerializer, self).create(validated_data)
@@ -49,6 +50,7 @@ class TaskSerializer(serializers.ModelSerializer):
             "id",
             "name",
             "description",
+            "owner"
             "executors",
             "finish_date",
             "attached_file",
@@ -56,4 +58,5 @@ class TaskSerializer(serializers.ModelSerializer):
         read_only_fields = (
             "id",
             "executors",
+            "owner",
         )
