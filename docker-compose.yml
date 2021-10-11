@@ -8,6 +8,7 @@ services:
       - "443:443"
     volumes:
       - django-static:/var/www/static
+      - django-media:/var/www/media
     depends_on:
       - django
     networks:
@@ -32,6 +33,7 @@ services:
     command: sh gunicorn.sh
     volumes:
       - django-static:/code/static
+      - django-media:/code/media
     expose:
       - "8000"
     depends_on:
@@ -44,3 +46,4 @@ networks:
 
 volumes:
   django-static:
+  django-media:
